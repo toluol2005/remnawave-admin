@@ -17,7 +17,7 @@ hero:
       link: /guide/overview
     - theme: alt
       text: GitHub
-      link: https://github.com/Case211/remnawave-admin
+      link: https://github.com/toluol2005/remnawave-admin
 
 features:
   - icon: 🛡

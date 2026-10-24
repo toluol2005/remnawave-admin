@@ -9,7 +9,7 @@ services:
   # ===========================================
 
   bot:
-    image: ghcr.io/case211/remnawave-admin:dev
+    image: ghcr.io/toluol2005/remnawave-admin:dev
     restart: unless-stopped
     env_file:
       - .env
@@ -78,7 +78,7 @@ services:
   # ===========================================
 
   web-backend:
-    image: ghcr.io/case211/remnawave-admin-web-backend:dev
+    image: ghcr.io/toluol2005/remnawave-admin-web-backend:dev
     container_name: remnawave-web-backend
     restart: unless-stopped
     env_file:
@@ -106,7 +106,7 @@ services:
       start_period: 120s
 
   web-frontend:
-    image: ghcr.io/case211/remnawave-admin-web-frontend:dev
+    image: ghcr.io/toluol2005/remnawave-admin-web-frontend:dev
     container_name: remnawave-web-frontend
     restart: unless-stopped
     env_file:

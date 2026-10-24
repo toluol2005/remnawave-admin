@@ -11,10 +11,8 @@ export const en: LocaleSpecificConfig<DefaultTheme.Config> = {
       {
         text: 'Links',
         items: [
-          { text: 'GitHub releases', link: 'https://github.com/Case211/remnawave-admin/releases' },
-          { text: 'Updates in Telegram', link: 'https://t.me/remnawave_admin/3032' },
-          { text: 'Telegram chat', link: 'https://t.me/remnawave_admin' },
-          { text: 'Issues', link: 'https://github.com/Case211/remnawave-admin/issues' },
+          { text: 'GitHub releases', link: 'https://github.com/toluol2005/remnawave-admin/releases' },
+          { text: 'Issues', link: 'https://github.com/toluol2005/remnawave-admin/issues' },
         ],
       },
     ],
@@ -116,7 +114,7 @@ export const en: LocaleSpecificConfig<DefaultTheme.Config> = {
     },
 
     editLink: {
-      pattern: 'https://github.com/Case211/remnawave-admin/edit/main/docs/:path',
+      pattern: 'https://github.com/toluol2005/remnawave-admin/edit/main/docs/:path',
       text: 'Suggest an edit',
     },
     footer: {

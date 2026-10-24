@@ -8,9 +8,7 @@
 
 Пользователи, ноды, анти-абуз, почта и мониторинг — в одном месте
 
-[![Stars](https://img.shields.io/github/stars/Case211/remnawave-admin?style=flat-square&logo=github&logoColor=white&labelColor=1f2430&color=f5c518)](https://github.com/Case211/remnawave-admin/stargazers) [![Release](https://img.shields.io/github/v/release/Case211/remnawave-admin?style=flat-square&logo=github&logoColor=white&labelColor=1f2430&color=3fb950)](https://github.com/Case211/remnawave-admin/releases/latest) [![License](https://img.shields.io/badge/License-AGPL_v3-blue?style=flat-square&logo=gnu&logoColor=white)](LICENSE)
-
-### [🌐 Сайт](https://nexuslink.ru) · [💬 Чат](https://t.me/remnawave_admin) · [🛟 Поддержка](https://t.me/rwa_moder_bot?start=support)
+[![Stars](https://img.shields.io/github/stars/toluol2005/remnawave-admin?style=flat-square&logo=github&logoColor=white&labelColor=1f2430&color=f5c518)](https://github.com/toluol2005/remnawave-admin/stargazers) [![Release](https://img.shields.io/github/v/release/toluol2005/remnawave-admin?style=flat-square&logo=github&logoColor=white&labelColor=1f2430&color=3fb950)](https://github.com/toluol2005/remnawave-admin/releases/latest) [![License](https://img.shields.io/badge/License-AGPL_v3-blue?style=flat-square&logo=gnu&logoColor=white)](LICENSE)
 
 [English](README_EN.md) · Русский
 
@@ -18,10 +16,8 @@
 
 ---
 
-> [!IMPORTANT]
-> **Remnawave Admin теперь платный.** Актуальная версия развивается отдельно и работает по подписке: первые 3 недели — бесплатно и с полным набором функций, дальше помесячно, цена зависит от размера сервиса. Цена, условия и регистрация — на **[nexuslink.ru](https://nexuslink.ru)**.
->
-> Здесь осталась последняя бесплатная версия **5.2.0**. Она работает, но больше не обновляется.
+> [!NOTE]
+> Это самостоятельно развиваемый форк последней свободной версии **5.2.0**. Оригинальный проект больше не поддерживается как open source, поэтому этот репозиторий развивается независимо: обновления, исправления и улучшения — здесь. Сервер лицензирования и витрина платных плагинов отключены, панель не отправляет данные на внешние серверы.
 
 Панель Remnawave отвечает за пользователей и конфигурацию. Remnawave Admin берёт на себя всё остальное: собирает подключения с нод, ищет разделение подписок и торренты, принимает меры, шлёт уведомления, хранит историю и показывает, что происходит.
 
@@ -49,25 +45,34 @@
 
 ## Как начать
 
-1. Зайдите на [nexuslink.ru](https://nexuslink.ru) и войдите в личный кабинет через Telegram.
-2. Выпустите токен установки — инструкция и документация откроются там же.
-3. Поставьте админку на свой сервер с Docker, лучше отдельный от панели. Первые 3 недели — бесплатно.
+1. Клонируйте репозиторий и создайте `.env` из примера:
 
-Вопросы — в [чат](https://t.me/remnawave_admin) или в поддержку [@rwa_moder_bot](https://t.me/rwa_moder_bot?start=support).
+   ```bash
+   git clone https://github.com/toluol2005/remnawave-admin.git
+   cd remnawave-admin
+   cp .env.example .env
+   ```
 
-## Бесплатная версия 5.2.0
+2. Заполните `.env`: токен бота из @BotFather, адрес и API-токен панели Remnawave, ваш Telegram ID, пароль PostgreSQL и `WEB_SECRET_KEY`. Полный список переменных — в `.env.example` и [справочнике](docs/guide/installation.md).
 
-Код в этом репозитории — последняя бесплатная версия. Её [документация](https://case211.github.io/remnawave-admin/) и [релиз](https://github.com/Case211/remnawave-admin/releases/tag/5.2.0) остаются на месте, но обновлений, исправлений и поддержки у неё больше не будет, pull request не принимаются.
+3. Запустите:
+
+   ```bash
+   docker network create remnawave-network
+   docker compose up -d
+   ```
+
+4. Откройте бота в Telegram (`/start`) и веб-панель на порту `:3000` — при первом входе создаётся аккаунт администратора.
+
+Подробная установка, reverse proxy и webhook'и — в [документации](docs/guide/installation.md).
+
+## Документация
+
+Документация лежит в [docs/](docs/) (VitePress): установка, анти-абуз, агент на нодах, почта, мониторинг, API, переменные окружения, команды бота.
 
 ## Лицензия
 
-Код этого репозитория — GNU AGPL v3.0 с исключением для плагинов (§7), см. [LICENSE](LICENSE); версии до 2.15.x включительно остаются под MIT. Платная версия — отдельный продукт, её условия — в [пользовательском соглашении](https://nexuslink.ru/terms.html).
-
-## Поддержать
-
-TON 
-USDT
-BTC
+GNU AGPL v3.0 с исключением для плагинов (§7) — см. [LICENSE](LICENSE); версии оригинала до 2.15.x включительно остаются под MIT. Этот форк модифицирует код версии 5.2.0; уведомления о копирайте оригинальных авторов сохранены в [LICENSE](LICENSE).
 
 <div align="center">
 

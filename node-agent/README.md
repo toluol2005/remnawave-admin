@@ -38,7 +38,7 @@ Xray, а по желанию ещё и разбором трафика чере�
 
 ```bash
 curl -fsSL --retry 3 --retry-delay 2 \
-  https://raw.githubusercontent.com/Case211/remnawave-admin/main/node-agent/install.sh \
+  https://raw.githubusercontent.com/toluol2005/remnawave-admin/main/node-agent/install.sh \
   -o /tmp/rwa-node-agent-install.sh \
   && bash /tmp/rwa-node-agent-install.sh --uuid UUID --url URL --token TOKEN
 ```
@@ -85,7 +85,7 @@ curl -fsSL --retry 3 --retry-delay 2 \
 mkdir -p /opt/remnawave-node-agent && cd /opt/remnawave-node-agent
 
 # Скачайте docker-compose.yml
-curl -fsSLO --retry 3 --retry-delay 2 https://raw.githubusercontent.com/Case211/remnawave-admin/main/node-agent/docker-compose.yml
+curl -fsSLO --retry 3 --retry-delay 2 https://raw.githubusercontent.com/toluol2005/remnawave-admin/main/node-agent/docker-compose.yml
 
 # Создайте .env
 nano .env
@@ -123,7 +123,7 @@ docker compose up -d
 docker compose logs -f
 ```
 
-Агент автоматически скачает готовый образ из GHCR (`ghcr.io/case211/remnawave-admin-node-agent:latest`).
+Агент автоматически скачает готовый образ из GHCR (`ghcr.io/toluol2005/remnawave-admin-node-agent:latest`).
 
 ### Проверка
 
@@ -284,7 +284,7 @@ nDPI видит трафик уже после NAT — от имени ноды,
 
 | Было (старая версия) | Стало (новая версия) |
 |---------------------|---------------------|
-| Локальная сборка `build: .` | Готовый образ `ghcr.io/case211/remnawave-admin-node-agent:latest` |
+| Локальная сборка `build: .` | Готовый образ `ghcr.io/toluol2005/remnawave-admin-node-agent:latest` |
 | `version: '3.8'` в docker-compose | Убран (deprecated) |
 | Нет healthcheck | Healthcheck встроен |
 | Нет лимитов ресурсов | Memory: 128M, CPU: 0.5 |

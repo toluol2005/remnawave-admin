@@ -1,11 +1,16 @@
 """Клиент сервера лицензирования и кэш entitlements (контракт v1.1).
 
-Панель keyless-идентифицируется на license.nexuslink.ru: при первом
-обращении к витрине тихо регистрируется (instance_id + bearer-токен),
-дальше heartbeat раз в несколько часов приносит подписанный Ed25519
-entitlements JWT — «что этому инстансу можно». Токен проверяется локально
-вшитым публичным ключом и кэшируется в БД: недоступность сервера не
-трогает купленные плагины до истечения TTL токена (сетевой грейс 72 ч).
+Панель keyless-идентифицируется на сервере лицензий: при первом обращении
+к витрине тихо регистрируется (instance_id + bearer-токен), дальше
+heartbeat раз в несколько часов приносит подписанный Ed25519 entitlements
+JWT — «что этому инстансу можно». Токен проверяется локально вшитым
+публичным ключом и кэшируется в БД: недоступность сервера не трогает
+купленные плагины до истечения TTL токена (сетевой грейс 72 ч).
+
+В этом форке сервер лицензий по умолчанию ОТКЛЮЧЁН (LICENSE_SERVERS
+пуст): панель не делает исходящих запросов, а обращения к магазину сразу
+получают код "disabled". Собственный сервер подключается переменной
+RWA_LICENSE_SERVER — тогда вся механика ниже работает как раньше.
 
 Плагины сами сюда не ходят — их гейтит ядро панели (см. core/plugins.py),
 плагинам состояние отдаёт фасад ``ctx.license``.
@@ -39,8 +44,12 @@ def _b64url_decode(data: str) -> bytes:
 # entitlements без приватника нельзя; сам ключ — не секрет.
 PUBLIC_KEY_B64 = "xasDeV371wZoM9iRiiU31BARjrzLfJqO8FQjj0qpWdk="
 
-# Основной + резервные адреса сервера; перебираются по порядку.
-LICENSE_SERVERS = ["https://license.nexuslink.ru"]
+# Исходный сервер лицензирования (вместе с витриной платных плагинов)
+# отключён: форк развивается самостоятельно и не должен никуда звонить.
+# Пустой список — все обращения к магазину сразу получают код "disabled",
+# без единого сетевого запроса. Собственный сервер можно подключить
+# переменной окружения RWA_LICENSE_SERVER.
+LICENSE_SERVERS: list[str] = []
 
 HEARTBEAT_INTERVAL_S = 8 * 3600
 RETRY_INTERVAL_S = 15 * 60
@@ -58,6 +67,11 @@ USABLE_STATES = (STATE_ACTIVE, STATE_GRACE)
 def _servers() -> list[str]:
     override = os.environ.get("RWA_LICENSE_SERVER", "").strip()
     return [override.rstrip("/")] if override else LICENSE_SERVERS
+
+
+def servers_configured() -> bool:
+    """Настроен ли хоть один сервер лицензий (нет — магазин отключён)."""
+    return bool(_servers())
 
 
 def _public_key_raw() -> bytes:
@@ -236,6 +250,9 @@ async def _request(
     expect_bytes: bool = False,
 ) -> Any:
     """Запрос к серверу лицензирования с перебором зеркал."""
+    servers = _servers()
+    if not servers:
+        raise LicenseServerError("disabled")
     headers = {}
     if authed:
         if not _cache.instance_token:
@@ -243,7 +260,7 @@ async def _request(
         headers["Authorization"] = f"Bearer {_cache.instance_token}"
 
     last_exc: Optional[Exception] = None
-    for base in _servers():
+    for base in servers:
         try:
             async with httpx.AsyncClient(timeout=HTTP_TIMEOUT_S) as client:
                 resp = await client.request(method, base + path, json=json_body, headers=headers)
@@ -462,6 +479,8 @@ async def download_wheel(plugin_id: str) -> bytes:
 
 async def rt_call(plugin_id: str, rt_method: str, payload: dict, *, timeout: float = 30.0) -> dict:
     """Вызов серверного ядра плагина (используется фасадом ctx.cloud)."""
+    if not _servers():
+        raise LicenseServerError("disabled")
     if not _cache.instance_token:
         raise LicenseServerError("not_registered")
     headers = {"Authorization": f"Bearer {_cache.instance_token}"}

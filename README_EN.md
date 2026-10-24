@@ -8,9 +8,7 @@
 
 Users, nodes, anti-abuse, mail and monitoring in one place
 
-[![Stars](https://img.shields.io/github/stars/Case211/remnawave-admin?style=flat-square&logo=github&logoColor=white&labelColor=1f2430&color=f5c518)](https://github.com/Case211/remnawave-admin/stargazers) [![Release](https://img.shields.io/github/v/release/Case211/remnawave-admin?style=flat-square&logo=github&logoColor=white&labelColor=1f2430&color=3fb950)](https://github.com/Case211/remnawave-admin/releases/latest) [![License](https://img.shields.io/badge/License-AGPL_v3-blue?style=flat-square&logo=gnu&logoColor=white)](LICENSE)
-
-### [🌐 Website](https://nexuslink.ru) · [💬 Chat](https://t.me/remnawave_admin) · [🛟 Support](https://t.me/rwa_moder_bot?start=support)
+[![Stars](https://img.shields.io/github/stars/toluol2005/remnawave-admin?style=flat-square&logo=github&logoColor=white&labelColor=1f2430&color=f5c518)](https://github.com/toluol2005/remnawave-admin/stargazers) [![Release](https://img.shields.io/github/v/release/toluol2005/remnawave-admin?style=flat-square&logo=github&logoColor=white&labelColor=1f2430&color=3fb950)](https://github.com/toluol2005/remnawave-admin/releases/latest) [![License](https://img.shields.io/badge/License-AGPL_v3-blue?style=flat-square&logo=gnu&logoColor=white)](LICENSE)
 
 English · [Русский](README.md)
 
@@ -18,10 +16,8 @@ English · [Русский](README.md)
 
 ---
 
-> [!IMPORTANT]
-> **Remnawave Admin is now a paid product.** The current version is developed separately and runs on a subscription: the first 3 weeks are free with every feature included, then it is billed monthly and the price depends on the size of your service. Pricing, terms and sign-up are on **[nexuslink.ru](https://nexuslink.ru)**.
->
-> This repository keeps the last free version, **5.2.0**. It works, but it no longer gets updates.
+> [!NOTE]
+> This is an independently maintained fork of the last free version, **5.2.0**. The original project is no longer maintained as open source, so this repository lives on its own: updates, fixes and improvements happen here. The licensing server and the paid plugin storefront are disabled — the panel sends no data to external servers.
 
 The Remnawave panel owns users and configuration. Remnawave Admin takes care of everything else: it collects connections from your nodes, hunts for subscription sharing and torrents, takes measures, sends notifications, keeps the history and shows you what is going on.
 
@@ -49,31 +45,36 @@ Also: an automation builder, scheduled backups, an action log, roles and permiss
 
 ## Getting started
 
-1. Go to [nexuslink.ru](https://nexuslink.ru) and sign in to the cabinet with Telegram.
-2. Issue an installation token; the instructions and documentation open right there.
-3. Install the admin panel on your own server with Docker, preferably separate from the panel. The first 3 weeks are free.
+1. Clone the repository and create `.env` from the example:
 
-Questions go to the [chat](https://t.me/remnawave_admin) or to support at [@rwa_moder_bot](https://t.me/rwa_moder_bot?start=support).
+   ```bash
+   git clone https://github.com/toluol2005/remnawave-admin.git
+   cd remnawave-admin
+   cp .env.example .env
+   ```
 
-## The free version 5.2.0
+2. Fill in `.env`: the bot token from @BotFather, your Remnawave panel API address and token, your Telegram ID, the PostgreSQL password and `WEB_SECRET_KEY`. The full list of variables is in `.env.example` and the [reference](docs/en/guide/installation.md).
 
-The code in this repository is the last free version. Its [documentation](https://case211.github.io/remnawave-admin/en/) and [release](https://github.com/Case211/remnawave-admin/releases/tag/5.2.0) stay where they are, but it will not get updates, fixes or support any more, and pull requests are not accepted.
+3. Start it:
+
+   ```bash
+   docker network create remnawave-network
+   docker compose up -d
+   ```
+
+4. Open the bot in Telegram (`/start`) and the web panel on port `:3000` — the administrator account is created on first login.
+
+Detailed installation, reverse proxy and webhooks — in the [documentation](docs/en/guide/installation.md).
+
+## Documentation
+
+The documentation lives in [docs/](docs/) (VitePress): installation, anti-abuse, the node agent, mail, monitoring, the API, environment variables, bot commands.
 
 ## Licence
 
-The code in this repository is GNU AGPL v3.0 with a plugin exception (§7) — see [LICENSE](LICENSE); versions up to and including 2.15.x remain under MIT. The paid version is a separate product; its terms are in the [user agreement](https://nexuslink.ru/terms.html).
-
-## Support the project
-
-TON `UQDDe-jyFTbQsPHqyojdFeO1_m7uPF-q1w0g_MfbSOd3l1sC`
-USDT TRC20 `TGyHJj2PsYSUwkBbWdc7BFfsAxsE6SGGJP`
-BTC `1J6Zz7XcrpFkchwFmuU5WTFYTxziBdSwRz`
+GNU AGPL v3.0 with a plugin exception (§7) — see [LICENSE](LICENSE); original versions up to and including 2.15.x remain under MIT. This fork modifies the 5.2.0 codebase; copyright notices of the original authors are preserved in [LICENSE](LICENSE).
 
 <div align="center">
-
-<a href="https://github.com/Case211/remnawave-admin/stargazers">
-  <img src="docs/star-history.svg" alt="Star history" width="640" />
-</a>
 
 Built for the Remnawave community
 

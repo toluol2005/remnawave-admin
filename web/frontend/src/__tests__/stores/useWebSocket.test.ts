@@ -238,7 +238,7 @@ describe('audit toast', () => {
     vi.useFakeTimers()
     // Вход через Telegram: в authStore ник, а в журнале — имя аккаунта
     useAuthStore.setState({
-      user: { username: 'ispanec_nn', firstName: 'Ispanec', authMethod: 'telegram' },
+      user: { username: 'admin_test_user', firstName: 'Admin', authMethod: 'telegram' },
       accessToken: 'test-jwt-token',
       refreshToken: null,
       isAuthenticated: true,
@@ -288,7 +288,7 @@ describe('audit toast', () => {
 
   it('без аккаунта сверяет по имени', async () => {
     usePermissionStore.setState({ accountId: null })
-    await receiveAudit({ admin_id: null, admin_username: 'ispanec_nn', action: 'users.enable', resource: 'users' })
+    await receiveAudit({ admin_id: null, admin_username: 'admin_test_user', action: 'users.enable', resource: 'users' })
     expect(toast.info).not.toHaveBeenCalled()
   })
 })

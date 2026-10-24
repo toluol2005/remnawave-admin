@@ -125,6 +125,33 @@ def test_stale_jwt_means_no_entitlements(keypair):
     assert not entitlements.is_usable("smart_support")
 
 
+# ── отключённый магазин ──────────────────────────────────────────
+
+
+@pytest.mark.asyncio
+async def test_store_disabled_without_license_server(monkeypatch):
+    """Пустой LICENSE_SERVERS — обращения падают сразу кодом "disabled",
+    ни одного сетевого запроса не уходит."""
+    monkeypatch.delenv("RWA_LICENSE_SERVER", raising=False)
+    monkeypatch.setattr(entitlements, "LICENSE_SERVERS", [])
+    assert not entitlements.servers_configured()
+
+    with pytest.raises(entitlements.LicenseServerError) as ei:
+        await entitlements.ensure_registered()
+    assert ei.value.code == "disabled"
+
+    with pytest.raises(entitlements.LicenseServerError) as ei:
+        await entitlements.fetch_client_apps(force=True)
+    assert ei.value.code == "disabled"
+
+
+@pytest.mark.asyncio
+async def test_store_enabled_via_env_override(monkeypatch):
+    """RWA_LICENSE_SERVER включает магазин, даже если встроенный список пуст."""
+    monkeypatch.setenv("RWA_LICENSE_SERVER", "https://licenses.example.com")
+    assert entitlements.servers_configured()
+
+
 def test_ui_license_state(keypair):
     free = PluginManifest(id="f", name="F", version="1", billing="free")
     paid = PluginManifest(id="p", name="P", version="1", billing="subscription")

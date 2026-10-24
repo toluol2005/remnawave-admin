@@ -33,7 +33,7 @@ class TestFetchLatestRelease:
         mock_resp.status_code = 200
         mock_resp.json.return_value = {
             "tag_name": "v1.2.3",
-            "html_url": "https://github.com/Case211/remnawave-admin/releases/tag/v1.2.3",
+            "html_url": "https://github.com/toluol2005/remnawave-admin/releases/tag/v1.2.3",
             "body": "Changelog text",
             "published_at": "2026-02-15T10:00:00Z",
         }

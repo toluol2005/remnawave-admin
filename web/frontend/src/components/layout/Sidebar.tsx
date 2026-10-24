@@ -10,8 +10,6 @@ import {
   ChevronsLeft,
   ChevronsRight,
   Github,
-  MessageCircle,
-  Heart,
   ListOrdered,
 } from '@/components/brand/icons'
 import { useAuthStore } from '../../store/authStore'
@@ -425,84 +423,21 @@ export default function Sidebar({ mobileOpen, onClose }: SidebarProps) {
 
       {/* Project links */}
       {role === 'superadmin' && (
-        <>
-      <div className="mx-4 h-px bg-gradient-to-r from-transparent via-[rgba(var(--glow-rgb),0.12)] to-transparent" />
-      <div className={cn("px-4 py-2 space-y-0.5", collapsed && "px-2")}>
-        {collapsed ? (
-          <>
-            <Tooltip delayDuration={0}>
-              <TooltipTrigger asChild>
-                <a
-                  href="https://github.com/case211/remnawave-admin"
-                  target="_blank"
-                  rel="noopener noreferrer"
-                  className="flex items-center justify-center py-1.5 text-dark-300 hover:text-white transition-colors"
-                >
-                  <Github className="w-4 h-4" />
-                </a>
-              </TooltipTrigger>
-              <TooltipContent side="right">GitHub</TooltipContent>
-            </Tooltip>
-            <Tooltip delayDuration={0}>
-              <TooltipTrigger asChild>
-                <a
-                  href="https://t.me/remnawave_admin"
-                  target="_blank"
-                  rel="noopener noreferrer"
-                  className="flex items-center justify-center py-1.5 text-dark-300 hover:text-white transition-colors"
-                >
-                  <MessageCircle className="w-4 h-4" />
-                </a>
-              </TooltipTrigger>
-              <TooltipContent side="right">Telegram</TooltipContent>
-            </Tooltip>
-            <Tooltip delayDuration={0}>
-              <TooltipTrigger asChild>
-                <a
-                  href="https://github.com/case211/remnawave-admin#-поддержка"
-                  target="_blank"
-                  rel="noopener noreferrer"
-                  className="flex items-center justify-center py-1.5 text-dark-300 hover:text-primary-400 transition-colors"
-                >
-                  <Heart className="w-4 h-4" />
-                </a>
-              </TooltipTrigger>
-              <TooltipContent side="right">{t('sidebar.support')}</TooltipContent>
-            </Tooltip>
-          </>
-        ) : (
-          <>
-            <a
-              href="https://github.com/case211/remnawave-admin"
-              target="_blank"
-              rel="noopener noreferrer"
-              className="flex items-center gap-2 px-2 py-1.5 text-xs text-dark-300 hover:text-white transition-colors rounded-md hover:bg-[var(--glass-bg)]"
-            >
-              <Github className="w-3.5 h-3.5 shrink-0" />
-              <span>GitHub</span>
-            </a>
-            <a
-              href="https://t.me/remnawave_admin"
-              target="_blank"
-              rel="noopener noreferrer"
-              className="flex items-center gap-2 px-2 py-1.5 text-xs text-dark-300 hover:text-white transition-colors rounded-md hover:bg-[var(--glass-bg)]"
-            >
-              <MessageCircle className="w-3.5 h-3.5 shrink-0" />
-              <span>{t('sidebar.telegramChat')}</span>
-            </a>
-            <a
-              href="https://github.com/case211/remnawave-admin#-поддержка"
-              target="_blank"
-              rel="noopener noreferrer"
-              className="flex items-center gap-2 px-2 py-1.5 text-xs text-dark-300 hover:text-primary-400 transition-colors rounded-md hover:bg-[var(--glass-bg)]"
-            >
-              <Heart className="w-3.5 h-3.5 shrink-0" />
-              <span>{t('sidebar.support')}</span>
-            </a>
-          </>
-        )}
-      </div>
-        </>
+        <div className="px-4 py-2">
+          <a
+            href="https://github.com/toluol2005/remnawave-admin"
+            target="_blank"
+            rel="noopener noreferrer"
+            className={cn(
+              "flex items-center text-dark-300 hover:text-white transition-colors rounded-md hover:bg-[var(--glass-bg)]",
+              collapsed ? "justify-center py-1.5" : "gap-2 px-2 py-1.5 text-xs"
+            )}
+            aria-label="GitHub"
+          >
+            <Github className={collapsed ? "w-4 h-4" : "w-3.5 h-3.5 shrink-0"} />
+            {!collapsed && <span>GitHub</span>}
+          </a>
+        </div>
       )}
 
       {/* User info */}

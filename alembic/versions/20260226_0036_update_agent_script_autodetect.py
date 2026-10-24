@@ -42,7 +42,7 @@ if [ -f "/.dockerenv" ] || grep -qsE '(docker|containerd)' /proc/1/cgroup 2>/dev
     echo "  docker compose up -d"
     echo ""
     echo "Or as a one-liner:"
-    echo "  docker pull ghcr.io/case211/remnawave-admin-node-agent:latest && docker restart $CONTAINER_NAME"
+    echo "  docker pull ghcr.io/toluol2005/remnawave-admin-node-agent:latest && docker restart $CONTAINER_NAME"
     exit 0
 fi
 

@@ -123,4 +123,4 @@ HTTP/1.1 422 Unprocessable Entity
 - тело ответа
 - значение заголовка `X-Request-Id`, если он есть
 
-[Issues на GitHub](https://github.com/Case211/remnawave-admin/issues).
+[Issues на GitHub](https://github.com/toluol2005/remnawave-admin/issues).

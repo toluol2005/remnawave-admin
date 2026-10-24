@@ -762,7 +762,10 @@ async def lifespan(app: FastAPI):
                     try:
                         from web.backend.core import entitlements
                         await entitlements.startup()
-                        _bg("license_heartbeat", entitlements.heartbeat_loop())
+                        # Без настроенного сервера лицензий фоновой цикл не
+                        # нужен: heartbeat неоткуда получать, а витрина мертва.
+                        if entitlements.servers_configured():
+                            _bg("license_heartbeat", entitlements.heartbeat_loop())
                     except Exception:
                         logger.exception("Entitlements startup failed")
 

@@ -2,7 +2,10 @@
  * API client for the plugin store (keyless model, contract v1.1).
  *
  * The panel backend proxies the licensing server: the browser never talks
- * to license.nexuslink.ru directly. All endpoints are superadmin-only.
+ * to it directly. All endpoints are superadmin-only. In this fork the
+ * licensing server is disabled by default (see core/entitlements.py) —
+ * store endpoints return the "disabled" error code unless a custom
+ * RWA_LICENSE_SERVER is configured.
  */
 import client from '@/api/client'
 

@@ -34,8 +34,7 @@ export default defineConfig({
   themeConfig: {
     logo: '/logo.svg',
     socialLinks: [
-      { icon: 'github', link: 'https://github.com/Case211/remnawave-admin' },
-      { icon: 'telegram', link: 'https://t.me/remnawave_admin' },
+      { icon: 'github', link: 'https://github.com/toluol2005/remnawave-admin' },
     ],
     search: {
       provider: 'local',

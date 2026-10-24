@@ -256,7 +256,7 @@ class CloudClient:
                 raise CloudQuotaExceeded(e.code, e.detail) from e
             if e.code == "subscription_required" or e.status == 402:
                 raise CloudSubscriptionRequired(e.code, e.detail) from e
-            if e.code == "server_unreachable" or e.status >= 500:
+            if e.code in ("server_unreachable", "disabled") or e.status >= 500:
                 raise CloudUnavailable(e.code, e.detail) from e
             raise CloudError(e.code, e.detail) from e
 

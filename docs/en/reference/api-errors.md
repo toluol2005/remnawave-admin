@@ -149,4 +149,4 @@ If you get a `500`, include:
 - Response body
 - Correlation ID from `X-Request-Id` response header (if present)
 
-Open an issue at <https://github.com/Case211/remnawave-admin/issues>.
+Open an issue at <https://github.com/toluol2005/remnawave-admin/issues>.

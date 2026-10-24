@@ -7,7 +7,7 @@
 ## 1. Клонировать репозиторий
 
 ```bash
-git clone https://github.com/Case211/remnawave-admin.git
+git clone https://github.com/toluol2005/remnawave-admin.git
 cd remnawave-admin
 ```
 

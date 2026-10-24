@@ -285,7 +285,7 @@ async def test_new_ticket_alert_carries_the_card(monkeypatch, sent):
         return (
             [("Telegram", tg_user("366945364", 366945364)),
              ("Подписка", "активна · до 19.10.2026"), ("Баланс", b("100 ₽"))],
-            {"username": "ispanec_nn", "telegram_id": 366945364},
+            {"username": "admin_test_user", "telegram_id": 366945364},
         )
 
     async def last_message(ticket_id):
@@ -477,12 +477,12 @@ def test_keyboard_offers_actions_without_panel_url(monkeypatch):
     """Кнопки действий работают и без публичного адреса — ссылки просто пропадают."""
     monkeypatch.setattr(support_alerts, "_panel_base", lambda: "")
 
-    flat = [button for row in support_alerts.ticket_buttons(65, bot_user_id=667, username="ispanec_nn")
+    flat = [button for row in support_alerts.ticket_buttons(65, bot_user_id=667, username="admin_test_user")
             for button in row]
 
     assert any(b.callback_data == "sact:take:65" and b.style == "success" for b in flat)
     assert any(b.callback_data == "sact:close:65" and b.style == "danger" for b in flat)
-    assert any(b.url == "https://t.me/ispanec_nn" for b in flat)
+    assert any(b.url == "https://t.me/admin_test_user" for b in flat)
     assert not any("/support?ticket=" in (b.url or "") for b in flat)
 
 
