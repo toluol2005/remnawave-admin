@@ -65,15 +65,11 @@
 
 ## Поддержать
 
-TON `UQDDe-jyFTbQsPHqyojdFeO1_m7uPF-q1w0g_MfbSOd3l1sC`
-USDT TRC20 `TGyHJj2PsYSUwkBbWdc7BFfsAxsE6SGGJP`
-BTC `1J6Zz7XcrpFkchwFmuU5WTFYTxziBdSwRz`
+TON 
+USDT
+BTC
 
 <div align="center">
-
-<a href="https://github.com/Case211/remnawave-admin/stargazers">
-  <img src="docs/star-history.svg" alt="История звёзд" width="640" />
-</a>
 
 Сделано для сообщества Remnawave
 
