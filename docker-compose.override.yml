@@ -1,0 +1,38 @@
+# Локальная сборка образов на хосте из исходников вместо pull из GHCR.
+# Docker Compose подхватывает этот файл автоматически вместе с
+# docker-compose.yml (override-соглашение), отдельных -f не нужно:
+#
+#   docker network create remnawave-network
+#   docker compose up -d --build     # собрать и запустить
+#   docker compose build             # пересобрать после правок кода
+#
+# Имена image наследуются из docker-compose.yml, поэтому собранные
+# образы тегируются как ghcr.io/toluol2005/...: остальные файлы
+# (docker-compose.dev.yml, node-agent/docker-compose.yml) работают
+# без правок. Когда появятся готовые образы в реестре — просто
+# удалите этот файл, и compose вернётся к pull из GHCR.
+#
+# Контексты — как в CI (.github/workflows/docker.yml):
+# бот и web-backend собираются из корня репозитория (нужны shared/,
+# locales/, alembic/), фронтенд — из своей папки.
+services:
+  bot:
+    build:
+      context: .
+      dockerfile: Dockerfile
+
+  web-backend:
+    build:
+      context: .
+      dockerfile: web/backend/Dockerfile
+
+  # Тот же образ, что и web-backend (профиль collector)
+  web-collector:
+    build:
+      context: .
+      dockerfile: web/backend/Dockerfile
+
+  web-frontend:
+    build:
+      context: web/frontend
+      dockerfile: Dockerfile

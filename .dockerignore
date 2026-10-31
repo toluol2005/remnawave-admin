@@ -1,0 +1,44 @@
+# Корневой .dockerignore: из корня репозитория собираются образы
+# бота и web-backend (см. docker-compose.override.yml и CI).
+# Контекст уходит демону целиком — держим его маленьким и без секретов.
+
+# Git и служебное
+.git
+.gitignore
+.github
+.zcode
+
+# Секреты — в образы не попадать
+.env
+.env.*
+!.env.example
+
+# Python: кэши и виртуальные окружения
+.venv
+venv
+**/__pycache__
+**/*.pyc
+.pytest_cache
+.coverage
+htmlcov
+
+# Node: фронтенд собирается из своего контекста (web/frontend/),
+# в образах бота и бэкенда ему делать нечего
+web/frontend
+**/node_modules
+
+# Не используется в образах bot / web-backend
+node-agent
+docs
+monitoring
+
+# Локальные данные и артефакты
+logs
+backups
+plugins
+*.log
+
+# Документация и метаданные репозитория
+*.md
+LICENSE
+docker-compose*.yml
